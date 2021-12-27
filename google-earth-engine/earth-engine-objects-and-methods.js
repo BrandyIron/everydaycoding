@@ -41,3 +41,25 @@ print('Golden ratio:', dictionary.get('phi'));
 
 // Get all the keys:
 print('Keys:', dictionary.keys());
+
+// Define a date in Earth Engine.
+var date = ee.Date('2015-12-31');
+print('Date:', date);
+
+// Get the current time using the JavaScript Date.now() method.
+var now = Date.now();
+print('Milliseconds since January 1, 1970', now);
+
+// Initialize an ee.Date object.
+var eeNow = ee.Date(now);
+print('Now:', eeNow);
+
+var aDate = ee.Date.fromYMD(2017, 1, 13);
+print('aDate:', aDate);
+
+var theDate = ee.Date.fromYMD({
+  day: 13,
+  month: 1,
+  year: 2017
+});
+print('theDate', theDate);
