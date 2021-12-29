@@ -29,3 +29,22 @@ var oddNumbers = newList.removeAll([0]);
 
 var squares = oddNumbers.map(computeSquares);
 print(squares);
+
+var collection = ee.ImageCollection('LANDSAT/LC08/C01/T1_TOA');
+
+// Divide the collection into 2 subsets and apply a different algorithm on them.
+var subset1 = collection.filter(ee.Filter.lt('SUN_ELEVATION', 40));
+var subset2 = collection.filter(ee.Filter.gte('SUN_ELEVATION', 40));
+
+var processed1 = subset1.map(function(image) {
+  return image.multiply(2);
+});
+var processed2 = subset2;
+
+// Merge the collections to get a single collection.
+var final = processed1.merge(processed2);
+print('Original collection size', collection.size());
+print('Processed collection size', final.size());
+
+
+
