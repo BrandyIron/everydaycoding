@@ -47,4 +47,15 @@ print('Original collection size', collection.size());
 print('Processed collection size', final.size());
 
 
+var algorithm = function(current, previous) {
+  previous = ee.List(previous);
+  var n1 = ee.Number(previous.get(-1));
+  var n2 = ee.Number(previous.get(-2));
+  return previous.add(n1.add(n2));
+};
 
+// Compute 10 iterations.
+var numIteration = ee.List.repeat(1, 10);
+var start = [0, 1];
+var sequence = numIteration.iterate(algorithm, start);
+print(sequence);
