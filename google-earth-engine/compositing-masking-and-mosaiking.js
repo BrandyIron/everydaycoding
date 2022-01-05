@@ -1,4 +1,3 @@
-
 var visParams = {bands: ['B4', 'B3', 'B2'], max: 0.5};
 
 var l8 = ee.ImageCollection('LANDSAT/LC08/C01/T1_TOA');
@@ -14,3 +13,15 @@ var visParams = {bands: ['B4', 'B3', 'B2'], max: 0.3};
 // Display the median composite.
 Map.addLayer(median, visParams, 'median');
 
+// Load or import the Hansen et al. forest change dataset.
+var hansenImage = ee.Image('UMD/hansen/global_forest_change_2015');
+
+// Select the land/water mask.
+var datamask = hansenImage.select('datamask');
+
+// Create a binary mask.
+var mask = datamask.eq(1);
+
+// Update the composite mask with the water mask.
+var maskedComposite = median.updateMask(mask);
+Map.addLayer(maskedComposite, visParams, 'masked');
