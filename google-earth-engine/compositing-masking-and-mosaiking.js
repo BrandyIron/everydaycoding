@@ -25,3 +25,18 @@ var mask = datamask.eq(1);
 // Update the composite mask with the water mask.
 var maskedComposite = median.updateMask(mask);
 Map.addLayer(maskedComposite, visParams, 'masked');
+
+// Make a water image out of the mask.
+var water = mask.not();
+
+// Mask water with itself to mask all the zeros (non-water).
+water = water.mask(water);
+
+// Make a image collection of visualization images.
+var mosaic = ee.ImageCollection([
+  median.visualize(visParams),
+  water.visualize({palette: '000044'}),
+]).mosaic();
+  
+// Display the mosaic.
+Map.addLayer(mosaic, {}, 'custom mosaic');
