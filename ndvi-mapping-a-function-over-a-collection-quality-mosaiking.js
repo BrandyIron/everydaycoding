@@ -34,4 +34,13 @@ var addNDVI = function(image) {
 // Test the addNDVI function on a single image.
 var ndvi = addNDVI(image).select('NDVI');
 
+var withNDVI = l8.map(addNDVI);
+
+// Make a "greenest" pixel composite.
+var greenest = withNDVI.qualityMosaic('NDVI');
+
+// Display the result.
+var visParams = {bands: ['B4', 'B3', 'B2'], max: 0.3};
+Map.addLayer(greenest, visParams, 'Greenest pixel composite');
+
 
