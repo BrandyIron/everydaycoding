@@ -13,3 +13,34 @@ var image = ee.Image(
   .sort('CLOUD-COVER')
   .first()
   );
+
+// Compute the Normalized Difference Vegetation Index (NDVI).
+var nir = image.select('B5');
+var red = image.select('B4');
+var ndvi = nir.subtract(red).divide(nir.add(red)).rename('NDVI');
+
+var ndvi = image.normalizedDifference(['B5', 'B4']).rename('NDVI');
+
+// Display the result.
+Map.centerObject(image, 9);
+var ndviParams = {min: -1, max: 1, palette: ['blue', 'white', 'green']};
+Map.addLayer(ndvi, ndviParams, 'NDVI Image');
+
+var addNDVI = function(image) {
+  var ndvi = image.normalizedDifference(['B5', 'B4']).rename('NDVI');
+  return image.addBands(ndvi);
+};
+
+// Test the addNDVI function on a single image.
+var ndvi = addNDVI(image).select('NDVI');
+
+var withNDVI = l8.map(addNDVI);
+
+// Make a "greenest" pixel composite.
+var greenest = withNDVI.qualityMosaic('NDVI');
+
+// Display the result.
+var visParams = {bands: ['B4', 'B3', 'B2'], max: 0.3};
+Map.addLayer(greenest, visParams, 'Greenest pixel composite');
+
+
