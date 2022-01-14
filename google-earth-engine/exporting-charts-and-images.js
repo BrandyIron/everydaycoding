@@ -17,3 +17,39 @@ var chart = ui.Chart.image.series({
 
 // Display the chart in the console.
 print(chart);
+
+var cloudlessNDVI = l8.map(function(image) {
+  // Get a cloud score in [0, 100].
+  var cloud = ee.Algorithms.Landsat.simpleCloudScore(image).select('cloud');
+  
+  // Create a mask of cloudy pixels from an arbitrary threshold.
+  var mask = cloud.lte(20);
+  
+  // Compute NDVI.
+  var ndvi = image.normalizedDifference(['B5', 'B4']).rename('NDVI');
+  
+  // Return the masked image with and NDVI band.
+  return image.addBands(ndvi).updateMask(mask);
+});
+
+print(ui.Chart.image.series({
+  imageCollection: cloudlessNDVI.select('NDVI'),
+  region: roi,
+  reducer: ee.Reducer.first(),
+  scale: 30
+}).setOptions({title: 'Cloud-masked NDVI over time'}));
+
+var greenset = cloudlessNDVI.qualityMosaic('NDVI');
+
+// Create a 3-band, 8-bit, color-IR composite to export.
+var visualization = greenest.visualize({
+  bands: ['B5', 'B4', 'B3'],
+  max: 0.4
+});
+
+// Create a task that you can launch from the Task tab.
+Export.image.toDrive({
+  image: visualization,
+  description: 'Greenest_pixel_composite',
+  scale: 30
+});
