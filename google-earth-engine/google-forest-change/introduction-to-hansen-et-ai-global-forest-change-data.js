@@ -11,3 +11,8 @@ Map.addLayer(gfc2014, {
   bands: ['loss', 'treecover2000', 'gain'],
   max: [1, 255, 1]
 }, 'forest cover, loss, gain');
+
+Map.addLayer(gfc2014, {
+  bands: ['treecover2000'],
+  palette: ['000000', '00FF00']
+}, 'forest cover palette');
