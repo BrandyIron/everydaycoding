@@ -16,3 +16,16 @@ Map.addLayer(gfc2014, {
   bands: ['treecover2000'],
   palette: ['000000', '00FF00']
 }, 'forest cover palette');
+
+Map.addLayer(gfc2014, {
+    bands: ['treecover2000'],
+    palette: ['000000', '00FF00'],
+    max: 100
+}, 'forest cover percent');
+
+Map.addLayer(gfc2014.mask(gfc2014), {
+  bands: ['treecover2000'],
+  palette: ['000000', '00FF00'],
+  max: 100
+}, 'forest cover masked');
+
