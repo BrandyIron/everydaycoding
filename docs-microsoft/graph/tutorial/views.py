@@ -90,8 +90,13 @@ def calendar(request):
         user['timeZone']
     )
 
-    context['errors'] = [
-        { 'message': 'Events', 'debug': format(events)}
-    ]
+    if events:
+        # Convert the ISO 8601 date times to a datetime object
+        # This allows the Django template to format the value nicely
+        for event in events['value']:
+            event['start']['datetime'] = parser.parse(event['start']['dateTime'])
+            event['end']['dateTime'] = parser.parse(event['end']['dateTime'])
+        
+        context['events'] = events['value']
 
-    return render(request, 'tutorial/home.html', context)
+    return render(request, 'tutorial/calendar.html', context)
