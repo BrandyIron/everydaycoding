@@ -1,0 +1,19 @@
+{
+    "Name": "Contributor",
+    "Id": "",
+    "IsCustom": false,
+    "Description": "Lets you manage everything except access to resources.",
+    "Actions": [
+        "*"
+    ],
+    "NotActions": [
+        "Microsoft.Authorization/*/Delete",
+        "Microsoft.Authorization/*/Write",
+        "Microsoft.Authorization/elevateAccess/Action"
+    ],
+    "DataActions": [],
+    "NotDataActions": [],
+    "AssignableScopes": [
+        "/"
+    ]
+}
