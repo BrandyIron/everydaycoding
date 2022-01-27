@@ -189,3 +189,46 @@ def get_iana_from_windows(windows_tz_name):
     else:
         # Assume if not found value is already an IANA name
         return windows_tz_name
+
+def create_event(token, subject, start, end, attendees=None, body=None, timezone='UTC'):
+    # Create an event object
+    new_event = {
+        'subject': subject,
+        'start': {
+            'dateTime': start,
+            'timeZone': timezone
+        },
+        'end': {
+            'dateTime': end,
+            'timeZone': timezone
+        }
+    }
+
+    if attendees:
+        attendee_list = []
+        for email in attendees:
+            # Create an attendee object
+            attendee_list.append({
+                'type': 'required',
+                'emailAddress': { 'address': email }
+            })
+
+        new_event['attendees'] = attendee_list
+    
+    if body:
+        # Create an itemBody object
+        new_event['body'] = {
+            'contentType': 'text',
+            'content': body
+        }
+    
+    # Set headers
+    headers = {
+        'Authorization': 'Bearer {0}'.format(token),
+        'Content-Type': 'application/json'
+    }
+
+    requests.post('{0}/me/events'.format(graph_url),
+        headers=headers,
+        data=json.dumps(new_event)
+    )
