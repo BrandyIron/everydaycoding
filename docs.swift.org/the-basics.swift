@@ -81,3 +81,28 @@ let pi = Double(three) + pointOneFourOneFiveNine
 
 let integerPi = Int(pi)
 // integerPi equals 3, and is inferred to be of type Int
+
+typealias AudioSample = UInt16
+
+var maxAmplitudeFound = AudioSample.min
+// maxAmplitudeFound is now 0
+
+let orangeAreOrange = true
+let turnipsAreDelicious = false
+
+if turnipsAreDelicious {
+    print("Mmm, tasty turnips!")
+} else {
+    print("Eww, turnips are horrible.")
+}
+// Prints "Eww, turnips are horrible."
+
+let i = 1
+if i {
+    // this example will not compile, and will report an error
+}
+
+let i = 1
+if i == 1 {
+    // this example will compile successfully
+}
