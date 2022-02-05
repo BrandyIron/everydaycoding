@@ -28,3 +28,27 @@ learn.show_results(max_n=6, figsize={7,8})
 
 interp = SegmentationInterpretation.from_learner(learn)
 interp.plot_top_losses(k=2)
+
+dls = TextDataLoaders.from_folder(untar_data(URLs.IMDB), valid='test')
+learn = text_classifier_learner(dls, AWS_LSTM, drop_mult=0.5, metrics=accuracy)
+learn.fine_tune(2, 1e-2)
+
+learn.predict("I really like a movie!")
+
+path = untar_data(URLs.ADULT_SAMPLE)
+
+dls = TabularDataLoaders.from_csv(path/'adult.csv', path=path, y_names="salary",
+cat_names = ['workclass', 'education', 'material-status', 'occupation', 'relationship', 'race'],
+cont_names = ['age', 'fnlwgt', 'education-num'],
+procs = [Categorify, FillMissing, Normalize]
+)
+
+learn = tabular_learner(dls, metrics=accuracy)
+learn.fit_one_cycle(2)
+
+path = untar_data(URLs.ML_SAMPLE)
+dls = CollabDataLoaders.from_csv(path/'rating.csv')
+learn = collab_learner(dls, y_range(0.5,5.5))
+learn.fine_tune(6)
+
+learn.show_results()
