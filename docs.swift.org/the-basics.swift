@@ -132,3 +132,19 @@ print("The status code is ¥(http200Status.statusCode)")
 print("The status code is ¥(http200Status.description)")
 // Prints "The status message is OK"
 
+let possibleNumber = "123"
+let convertedNumber = Int(possibleNumber)
+// ConvertedNumber is inferred to by of type "Int?" or "optional Int"
+
+var serverResponseCode: Int? = 404
+// serverResponseCode contains an actual Int value of 404
+serverResponseCode = nil
+// serverResponseCode now contains no value
+
+var surveyAnswer: String?
+// surveyAnswer is automatically set to nil
+
+if convertedNumber != nil {
+    print("convertedNumber contains some integer value.")
+}
+// Prints "convertedNumber contains some integer value."
