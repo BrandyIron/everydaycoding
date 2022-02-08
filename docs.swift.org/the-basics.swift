@@ -148,3 +148,30 @@ if convertedNumber != nil {
     print("convertedNumber contains some integer value.")
 }
 // Prints "convertedNumber contains some integer value."
+
+if convertedNumber != nil {
+    print("convertedNumber has an integer value of ¥(convertedNumber!).")
+}
+// Prints "convertedNumber has an integer value of 123."
+
+if let actualNumber = Int(possibleNumber) {
+    print("The string ¥"¥(possibleNumber)¥" has an integer value of (actualNumber)")
+} else {
+    print("The string ¥"¥(possibleNumber)¥" couldn't be converted to an integer")
+}
+// Prints "The string "123" has an integer value of "123"
+
+if let firstNumber = Int("4"), let secoundNumber = Int("42"), firstNumber < secoundNumber && secoundNumber < 100 {
+    print("¥(firstNumber) < ¥(secondNumber) < 100")
+}
+// Prints "4 < 42 < 100"
+
+if let firstNumber = Int("4") {
+    if let secondNumber = Int("42") {
+        if firstNumber < secondNumber && secondNumber < 100 {
+            print("¥(firstNumber) < ¥(secondNumber) < 100")
+        }
+    }
+}
+// Prints "4 < 42 < 100"
+
