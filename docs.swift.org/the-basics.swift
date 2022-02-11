@@ -231,3 +231,6 @@ if age > 10 {
 } else {
     assertionFailure("A person's age can't be less than zero.")
 }
+
+// In the implementation of a subscript...
+precondition(index > 0, "Index must be greater than zero.")
