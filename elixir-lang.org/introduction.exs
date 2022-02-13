@@ -28,3 +28,10 @@ tl(list)
 tuple = {:ok, "hello"}
 elem(tuple, 1)
 put_elem(tuple, 1, "world")
+
+list = [1, 2, 3]
+[0] ++ list
+list ++ [4]
+
+tuple = {:a, :b, :c, :d}
+put_elem(tuple, 2, :e)
