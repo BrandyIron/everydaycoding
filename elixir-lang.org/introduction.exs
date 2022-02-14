@@ -35,3 +35,8 @@ list ++ [4]
 
 tuple = {:a, :b, :c, :d}
 put_elem(tuple, 2, :e)
+
+File.read("path/to/existing/file")
+
+tuple = {:ok, "hello"}
+elem(tuple, 1)
