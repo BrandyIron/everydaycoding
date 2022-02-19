@@ -17,3 +17,19 @@ learn.fine_tune(1)
 learn.predict(files[0])
 
 learn.show_results()
+
+files[0].name
+pat = r'^(.*)_¥d.jpg'
+dls = ImageDataLoaders.from_name_re(path, files, pat, item_tfms=Resize(224))
+dls.show_batch()
+
+dls = ImageDataLoaders.from_name_re(path, files, pat, item_tfms=Resize(460, batch_tfms=aug_transforms(size=224)))
+dls.show_batch()
+
+learn = cnn.learner(dls, resnet34, metrics=error_rate)
+learn.lr.find()
+learn.fine_tune(2, 3e-3)
+learn.show_results()
+
+interp = Interpretation.from_leaner(learn)
+interp.plot_top_losses(9, figsize=(15, 10))
