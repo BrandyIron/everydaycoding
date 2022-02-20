@@ -33,3 +33,14 @@ learn.show_results()
 
 interp = Interpretation.from_leaner(learn)
 interp.plot_top_losses(9, figsize=(15, 10))
+
+path = untar_data(URLs.PASCAL_2007)
+path.ls()
+
+df = pd.read_csv(path/'train.csv')
+df.head()
+
+dls = ImageDataLoaders.from_df(df, path, folder='train', valid_col='is_valid', label_delim=' ', item_tfms=Resize(460), batch_tfms=aug_trans(size=224))
+dls.show_batch()
+
+f1_macro = FiScoreMulti(thresh=0.5, average='macro')
