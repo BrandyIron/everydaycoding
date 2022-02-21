@@ -44,3 +44,15 @@ dls = ImageDataLoaders.from_df(df, path, folder='train', valid_col='is_valid', l
 dls.show_batch()
 
 f1_macro = F1ScoreMulti(thresh=0.5, average='macro')
+fl_marco.name = 'F1(marco)'
+f1_samples = F1ScoreMulti(thresh=0.5, average='samples')
+f1_samples.name = 'F1(samples)'
+learn = cnn_learner(dls, resnet50, metrics=[partial(accuracy_multi, thresh=0.5), f1_marco, f1_samples])
+learn.lr_find()
+learn.fine_tune(2, 3e-2)
+learn.show_results()
+learn.predict(path/'train/000005.jpg')
+interp = Interpretation.from_learner(learn)
+interp.plot_top_losses(9)
+
+df.head()
