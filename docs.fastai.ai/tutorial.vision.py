@@ -56,3 +56,5 @@ interp = Interpretation.from_learner(learn)
 interp.plot_top_losses(9)
 
 df.head()
+
+pascal = DataBlock(blocks=(ImageBlock, MultiCategoryBlock), splitter=ColSplitter('is_valid'), get_x=ColReader('fname', pref=str(path/'train') + os.path.sep), get_y=ColReader('labels', label_delim=' '), item_tfms = Resize(468), batch_tfms=aug_transforms(size=224))
