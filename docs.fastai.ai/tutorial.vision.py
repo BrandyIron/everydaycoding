@@ -58,3 +58,18 @@ interp.plot_top_losses(9)
 df.head()
 
 pascal = DataBlock(blocks=(ImageBlock, MultiCategoryBlock), splitter=ColSplitter('is_valid'), get_x=ColReader('fname', pref=str(path/'train') + os.path.sep), get_y=ColReader('labels', label_delim=' '), item_tfms = Resize(468), batch_tfms=aug_transforms(size=224))
+dls = pascal.dataloaders(df)
+dls.show_batch(max_n=9)
+
+path = untar_data(URLs.CAMVID_TINY)
+path.ls()
+codes = np.loadtxt(path/'codes.txt', dtype=str)
+codes
+fnames = get_image_files(path/"images")
+fnames[0]
+(path/"labels").ls()[0]
+def label_func(fn): return path/"labels"/f"{fn.stem}_P{fn.suffix}"
+dls = SegmentationDataLoaders.from_label_func(
+    path, bs=8, fnames = fnames, label_func = label_func, codes = codes
+)
+dls.show_batch(max_n=6)
