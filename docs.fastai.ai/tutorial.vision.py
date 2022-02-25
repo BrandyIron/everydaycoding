@@ -73,3 +73,9 @@ dls = SegmentationDataLoaders.from_label_func(
     path, bs=8, fnames = fnames, label_func = label_func, codes = codes
 )
 dls.show_batch(max_n=6)
+
+learn = unet_learner(dls, resnet34)
+learn.fine_tune(6)
+learn.show_results(max_n=6, figsize=(7,8))
+interp = SegmentationInterpretation.from_learner(learn)
+interp.plot_top_losses(k=3)
