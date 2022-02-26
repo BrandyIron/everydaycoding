@@ -79,3 +79,11 @@ learn.fine_tune(6)
 learn.show_results(max_n=6, figsize=(7,8))
 interp = SegmentationInterpretation.from_learner(learn)
 interp.plot_top_losses(k=3)
+
+camvid = DataBlock(blocks=(ImageBlock, MaskBlock(codes)), 
+    get_items = get_image_files, 
+    get_y = label_func, 
+    splitter = RandomSplitter(), 
+    batch_tfms = aug_transforms(size=120, 160))
+dls = camvid.dataloaders(path/"images", path=path, bs=8)
+dls.show_batch(max_n=6)
