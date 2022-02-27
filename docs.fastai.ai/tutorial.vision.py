@@ -87,3 +87,9 @@ camvid = DataBlock(blocks=(ImageBlock, MaskBlock(codes)),
     batch_tfms = aug_transforms(size=120, 160))
 dls = camvid.dataloaders(path/"images", path=path, bs=8)
 dls.show_batch(max_n=6)
+
+path = untar_data(URLs.BIWI_HEAD_POSE)
+path.ls()
+img_files = get_image_files(path)
+def img2pose(x): return Path(f'{str(x)[:-7]}pose.txt')
+img2pose(img_files[0])
