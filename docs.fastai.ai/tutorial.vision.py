@@ -93,3 +93,13 @@ path.ls()
 img_files = get_image_files(path)
 def img2pose(x): return Path(f'{str(x)[:-7]}pose.txt')
 img2pose(img_files[0])
+
+im = PILImage.create(img_files[0])
+im.shape
+im.to_thumb(160)
+cal = np.genfromtxt(path/'01'/'rgb.cal', skip_footer=6)
+def get_ctr(f):
+    ctr = np.genfromtxt(img2pose(f), skip_header=3)
+    c1 = ctr[0] * cal[0][0]/ctr[2] + cal[0][2]
+    c2 = ctr[1] * cal[1][1]/ctr[2] + cal[1][2]
+    return tensor([c1, c2])
