@@ -41,3 +41,11 @@ end
 cond do
   hd([1, 2, 3]) -> "1 is considered as true"
 end
+
+if true do
+  "This works!"
+end
+
+unless true do
+  "This will never be seen!"
+end
