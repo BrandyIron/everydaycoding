@@ -30,3 +30,17 @@ stats.cauchy(4, 1.5).rvs(500),
 
 # truncate values to a reasonable range
 t = t[(t > -15) & (t < 15)]
+
+# First figure: show normal histogram binning
+fig = plt.figure(figsize=(10, 4))
+fig.subplots_adjust(left=0.1, right=0.95, bottom=0.15)
+
+ax1 = fig.add_subplot(121)
+ax1.hist(t, bins=15, histtype='stepfilled', alpha=0.2, density=True)
+ax1.set_xlabel('t')
+ax1.set_ylabel('P(t)')
+
+ax2 = fig.add_subplot(122)
+ax2.hist(t, bins=200, histtype='stepfilled', alpha=0.2, density=True)
+ax2.set_xlabel('t')
+ax2.set_ylabel('P(t)')
