@@ -44,3 +44,8 @@ ax2 = fig.add_subplot(122)
 ax2.hist(t, bins=200, histtype='stepfilled', alpha=0.2, density=True)
 ax2.set_xlabel('t')
 ax2.set_ylabel('P(t)')
+
+
+fig = plt.figure(figsize=(10, 4))
+fig.subplots_adjust(left=0.1, right=0.95, bottom=0.15)
+
