@@ -49,3 +49,17 @@ ax2.set_ylabel('P(t)')
 fig = plt.figure(figsize=(10, 4))
 fig.subplots_adjust(left=0.1, right=0.95, bottom=0.15)
 
+for bins, title, subplot in zip(['knuth', 'blocks'], ["Knuth's rule", "Bayesian blocks"], [121, 122]):
+    ax = fig.add_subplot(subplot)
+
+    # plot a standard histogram in the background, with alpha transparency
+    hist(t, bins=200, histtype='stepfilled', alpha=0.2, density=True, label='standard histogram')
+
+    # plot an adaptive-width histogram on top
+    hist(t, bins=bins, ax=ax, color='black', histtype='step', density=True, label=title)
+
+    ax.legend(prop=dict(size=12))
+    ax.set_xlabel('t')
+    ax.set_ylabel('P(t)')
+
+plt.show()
