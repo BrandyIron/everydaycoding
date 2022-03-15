@@ -26,3 +26,17 @@ var statsFormatted = ee.List(lossByYear.get('groups')).map(function(el) {
 });
 var statsDictionary = ee.Dictionary(statsFormatted.flatten());
 print(statsDictionary);
+
+var chart = ui.Chart.array.values({
+    array: statsDictionary.values(),
+    axis: 0,
+    xLabels: statsDictionary.keys()
+}).setChartType('ColumnChart').setOptions({
+    title: 'Yearly Forest Loss',
+    hAxis: {title: 'Year', formar: '####'},
+    vAxis: {title: 'Area {square meters}'},
+    legend: {position: "none"},
+    lineWidth: 1,
+    pointSize: 3
+});
+print(chart);
