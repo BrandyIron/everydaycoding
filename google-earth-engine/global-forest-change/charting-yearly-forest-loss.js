@@ -19,3 +19,10 @@ var lossByYear = lossAreaImage.addBands(lossYear).reduceRegion({
     maxPixels: 1e9
 });
 print(lossByYear);
+
+var statsFormatted = ee.List(lossByYear.get('groups')).map(function(el) {
+    var d = ee.Dictionary(el);
+    return [ee.Number(d.get('group')).format("20%02d"), d.get('sum')];
+});
+var statsDictionary = ee.Dictionary(statsFormatted.flatten());
+print(statsDictionary);
