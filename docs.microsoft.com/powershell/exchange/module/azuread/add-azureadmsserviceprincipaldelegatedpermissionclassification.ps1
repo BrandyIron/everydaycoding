@@ -1,0 +1,1 @@
+Add-AzureADMSServicePrincipalDelegatePermissionClassification -ServicePrincipalId "" -PermissionID "" -Classification Low -PermissionName "User.ReadBasic.All"
