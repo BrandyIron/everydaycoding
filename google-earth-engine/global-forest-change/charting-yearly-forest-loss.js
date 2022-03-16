@@ -40,3 +40,4 @@ var chart = ui.Chart.array.values({
     pointSize: 3
 });
 print(chart);
+
