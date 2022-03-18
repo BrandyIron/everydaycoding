@@ -49,3 +49,39 @@ var stats = forma2012.reduceRegion({
     scale: 500
 });
 print('Number of FORMA pixels, 2012: ', stats.get('constant'));
+
+var regionsStats = forma2012.reduceRegions({
+    collection: protectedAreas,
+    reducer: ee.Reducer.sum(),
+    scale: forma2012.projection().nominalScale()
+});
+print(regionsStats);
+
+// Convert dates from milliseconds to seconds.
+var start = ee.Date('2012-01-01').millis().divide(1000);
+var end = ee.Date('2013-01-01').millis().divide(1000);
+var region = ee.Geometry.Rectangle([-59.81163, -9.43348, -59.27561, -9.22818]);
+
+// Load the FORMA 500 dataset.
+var forma = ee.Image('FORMA/FORMA_500m');
+
+// Create a binary layer from the dates of interest.
+var forma2012 = forms.gte(start).and(forma.lte(end));
+
+// Load Hansen et al. data and get change in 2012.
+var gfc = ee.Image('UMD/hansen/global_forest_change_2015');
+var gfc12 = gfc.select(['lossyear']).eq(12);
+
+// Create an image which is one where the datasets
+// both show deforestation and zero elsewhere.
+var gfc_forma = gfc12.eq(1).and(forma2012.eq(1));
+
+// Display data on the map.
+Map.SetCenter(-59.58813, -9.36439, 11);
+Map.addLayer(forma.updateMask(forma), {palette: '00FF00'}, 'Forma (green)');
+Map.addLayer(gfc12.updateMask(gfc12), {palette: 'FF0000'}, 'Hansen (red)');
+Map.addLayer(
+    gfc_forma.updateMask(gfc_forma),
+    {palette: 'FFFF00'},
+    'Hansen & FORMA (yellow)'
+);
