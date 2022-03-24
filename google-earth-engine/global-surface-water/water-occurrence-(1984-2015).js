@@ -29,3 +29,10 @@ Map.addLayer({
     visParams: VIS_WATER_MASK,
     name: '90% occurrence water mask'
 });
+
+Map.setCenter(-74.4557, -8.4289, 11); // Ucayali River, Peru
+
+// Asset list
+var gsw = ee.Image('JRC/GSW1_0/GlobalSurfaceWater');
+var occurrence = gsw.select('occurrence');
+
