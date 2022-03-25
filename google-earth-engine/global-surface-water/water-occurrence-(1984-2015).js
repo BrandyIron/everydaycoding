@@ -36,3 +36,12 @@ Map.setCenter(-74.4557, -8.4289, 11); // Ucayali River, Peru
 var gsw = ee.Image('JRC/GSW1_0/GlobalSurfaceWater');
 var occurrence = gsw.select('occurrence');
 
+// Constants
+var VIS_OCCURRENCE = {
+    min: 0,
+    max: 100,
+    palette: ['red', 'blue']
+};
+var VIS_WATER_MASK = {
+    palette: ['white', 'black']
+};
