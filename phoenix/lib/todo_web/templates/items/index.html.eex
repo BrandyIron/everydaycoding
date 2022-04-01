@@ -1,0 +1,13 @@
+<h1>Items</h1>
+
+<%= for item <- @items do %>
+  <h3><%= item.description %></h3>
+
+  <%= if item.completed do %>
+    <p style="color:green;">Completed</p>
+  <% else %>
+    <p style="color:red;">To be done</p>
+  <% end %>
+
+  <hr>
+<% end %>
