@@ -11,3 +11,11 @@
 
   <hr>
 <% end %>
+
+<%= form_for @changeset, Routes.items_path(@conn, :create), fn f -> %>
+  <label>
+  Add a new todo item: <%= text_input f, :description %>
+  </label>
+
+  <%= submit "Submit" %>
+  <% end %>
