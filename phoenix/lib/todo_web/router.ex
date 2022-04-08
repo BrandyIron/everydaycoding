@@ -3,3 +3,6 @@ scope "/", TodoWeb do
 
   get "/items", ItemController, :index
 end
+
+patch "/items/:id/complete", ItemsController, :complete
+delete "/items/:id", ItemsController, :delete
