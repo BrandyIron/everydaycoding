@@ -9,3 +9,11 @@ var someString = serverString.getInfo();
 var strings = someString + ' Am I?';
 print(strings);
 
+var toServerlist = ee.List(clientList);
+
+var myList = ee.List([1, 2, 3]);
+var serverBoolean = myList.contains(5);
+print(serverBoolean);
+
+var serverConditional = ee.Algorithm.If(serverBoolean, 'True', 'False!');
+print('Should be false:', serverConditional);
