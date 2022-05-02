@@ -10,3 +10,12 @@ var uri = 'gs://gcp-public-data-landsat/LC08/01/001/002/' +
 
 var cloudImage = ee.Image.loadGeoTIFF(uri);
 print(cloudImage);
+
+// Create a constant image.
+var image1 = ee.Image(1);
+print(image1);
+
+// Concatenate two images into one multi-band image.
+var image2 = ee.Image(2);
+var image3 = ee.Image.cat([image1, image2]);
+print(image3);
