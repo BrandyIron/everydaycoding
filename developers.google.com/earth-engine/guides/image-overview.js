@@ -19,3 +19,8 @@ print(image1);
 var image2 = ee.Image(2);
 var image3 = ee.Image.cat([image1, image2]);
 print(image3);
+
+// Create a multi-band image from a list of constants.
+var multiband = ee.Image([1, 2, 3]);
+print(multiband);
+
