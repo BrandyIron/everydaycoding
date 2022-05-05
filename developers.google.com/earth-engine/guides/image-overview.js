@@ -24,3 +24,13 @@ print(image3);
 var multiband = ee.Image([1, 2, 3]);
 print(multiband);
 
+// Select and (optionally) rename bands.
+var renamed = multiband.select(
+    ['constant', 'constant_1', 'constant_2'],
+    ['band1', 'band2', 'band3']
+);
+print(renamed);
+
+// Add bands to an image.
+var image4 = image3.addBands(ee.Image(42));
+print(image4);
