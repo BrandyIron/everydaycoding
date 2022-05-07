@@ -8,3 +8,7 @@ var vizParams = {
     max: 0.5,
     gamma: [0.95, 1.1, 1]
 };
+
+// Center the map and display the image.
+Map.setCenter(-122.1899, 37.5010, 10);
+Map.addLayer(image, vizParams, 'false color composite');
