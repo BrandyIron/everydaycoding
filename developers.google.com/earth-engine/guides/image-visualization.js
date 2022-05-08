@@ -12,3 +12,11 @@ var vizParams = {
 // Center the map and display the image.
 Map.setCenter(-122.1899, 37.5010, 10);
 Map.addLayer(image, vizParams, 'false color composite');
+
+// Load an image.
+var image = ee.Image('LANDSAT/LC08/C02/T1_TOA/LC08_044034_20140318');
+
+// Create an NDWI image, define visualization parameters and display.
+var ndwi = image.normalizeDifference(['B3', 'B5']);
+var ndwiViz = {min: 0.5, max: 1, palette: ['00FFFF', '0000FF']};
+Map.addLayer(ndwi, ndwiViz, 'NDWI', false);
