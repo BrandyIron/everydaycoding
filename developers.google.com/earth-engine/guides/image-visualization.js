@@ -24,3 +24,11 @@ Map.addLayer(ndwi, ndwiViz, 'NDWI', false);
 // Mask the non-watery parts of the image, where NDWI < 0.4.
 var ndwiMasked = ndwi.updateMask(ndwi.gte(0.4));
 Map.addLayer(ndwiMasked, ndwiViz, 'NDWI masked');
+
+// Create visualization layers.
+var imageRGB = image.visualize({bands: ['B5', 'B4', 'B3'], max: 0.5});
+var ndwiRGB = ndwiMasked.visualize({
+    min: 0.5,
+    max: 1,
+    palette: ['00FFFF', '0000FF']
+});
