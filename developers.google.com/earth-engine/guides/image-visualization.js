@@ -32,3 +32,7 @@ var ndwiRGB = ndwiMasked.visualize({
     max: 1,
     palette: ['00FFFF', '0000FF']
 });
+
+// Mosaic the visualization layers and dislay (or export).
+var mosaic = ee.ImageCollection([imageRGB, ndwiRGB]).mosaic();
+Map.addLayer(mosaic, {}, 'mosaic');
