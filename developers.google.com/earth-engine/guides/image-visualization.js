@@ -36,3 +36,9 @@ var ndwiRGB = ndwiMasked.visualize({
 // Mosaic the visualization layers and dislay (or export).
 var mosaic = ee.ImageCollection([imageRGB, ndwiRGB]).mosaic();
 Map.addLayer(mosaic, {}, 'mosaic');
+
+// Create a circle by drawing a 20000 meter buffer around a point.
+var roi = ee.Geometry.Point([-122.4481, 37.7599]).buffer(20000);
+
+// Display a clipped version of the mosaic.
+Map.addLayer(mosaic.clip(roi), null, 'mosaic clipped');
