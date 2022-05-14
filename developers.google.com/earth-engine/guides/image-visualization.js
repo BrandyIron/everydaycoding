@@ -42,3 +42,7 @@ var roi = ee.Geometry.Point([-122.4481, 37.7599]).buffer(20000);
 
 // Display a clipped version of the mosaic.
 Map.addLayer(mosaic.clip(roi), null, 'mosaic clipped');
+
+// Load 2012 MODIS land cover and select the IGBP classification
+var cover = ee.Image('MODIS/051/MCD12Q1/2012_01_01').select('Land_Cover_Type_1');
+
