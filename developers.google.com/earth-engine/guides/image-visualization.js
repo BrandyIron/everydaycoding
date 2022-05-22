@@ -125,3 +125,6 @@ var sld_ramp =
 Map.setCenter(-76.8054, 42.0289, 8);
 Map.addLayer(image.sldStyle(sld_intervals), {}, 'SLD intervals');
 Map.addLayer(image.sldStyle(sld_ramp), {}, 'SLD ramp');
+
+// Load a Landset 8 raw image.
+var image = ee.Image('LANDSAT/LC08/C02/T1/LC08_044034_20140318');
