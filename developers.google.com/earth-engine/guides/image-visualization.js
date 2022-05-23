@@ -128,3 +128,20 @@ Map.addLayer(image.sldStyle(sld_ramp), {}, 'SLD ramp');
 
 // Load a Landset 8 raw image.
 var image = ee.Image('LANDSAT/LC08/C02/T1/LC08_044034_20140318');
+
+// Define a RasterSymbolizer element with '_enhance_' for a placeholder.
+var template_sld = 
+'<RasterSymbolizer>' +
+'<ContrastEnhancement><_enhance_/></ContrastEnhancement>' +
+'<ChannelSelection>' +
+  '<RedChannel>' +
+    '<SourceChannelName>B5</SourceChannelName>' +
+  '</RedChannel>' +
+  '<GreenChannel>' +
+    '<SourceChannelName>B4</SourceChannelName>' +
+  '</GreenChannel>' +
+  '<BlueChannel>' +
+    '<SourceChannelName>B3</SourceChannelName>' +
+  '</BlueChannel>' +
+'</ChannelSelection>' +
+'</RasterSymbolizer>';
