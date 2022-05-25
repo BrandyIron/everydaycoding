@@ -145,3 +145,13 @@ var template_sld =
   '</BlueChannel>' +
 '</ChannelSelection>' +
 '</RasterSymbolizer>';
+
+// Get SLDs with different enhancements.
+var equalize_sld = template_sld.replace('_enhance_', 'Histogram');
+var normalize_sld = template_sld.replace('_enhance_', 'Normalize');
+
+// Display the results.
+Map.centerObject(image, 10);
+Map.addLayer(image, {bands: ['B5', 'B4', 'B3'], min: 0, max: 15000}, 'Linear');
+Map.addLayer(image.sldStyle(equalize_sld), {}, 'Equalized');
+Map.addLayer(image.sldStyle(normalize_sld), {}, 'Normalize');
