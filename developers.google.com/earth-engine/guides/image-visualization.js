@@ -155,3 +155,15 @@ Map.centerObject(image, 10);
 Map.addLayer(image, {bands: ['B5', 'B4', 'B3'], min: 0, max: 15000}, 'Linear');
 Map.addLayer(image.sldStyle(equalize_sld), {}, 'Equalized');
 Map.addLayer(image.sldStyle(normalize_sld), {}, 'Normalize');
+
+// Fetch a digital elevation model.
+var image = ee.Image('CGIAR/SRTM90_V4');
+
+// Request a default thumbnail of the DEM with defined linear stretch.
+// Set masked pixels (ocean) to 1000 so they map as gray.
+var thumbnail = image.unmask(1000).getThumbnail({
+    'min': 0,
+    'max': 3000,
+    'dimensions': 500,
+});
+print('Default extent:', thumbnail1);
