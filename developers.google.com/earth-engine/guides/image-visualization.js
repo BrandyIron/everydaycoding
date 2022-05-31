@@ -167,3 +167,13 @@ var thumbnail = image.unmask(1000).getThumbnail({
     'dimensions': 500,
 });
 print('Default extent:', thumbnail1);
+
+// Specify region by rectangle, define palette, set larger aspect dimension size.
+var thumbnail2 = image.getThumbnail({
+    'min': 0,
+    'max': 3000,
+    'palette': ['00A600','63C600','E6E600','E9BD3A','ECB176','EFC2B3','F2F2F2'],
+    'dimensions': 500,
+    'region': ee.Geometry.Rectangle([-84.6, -55.9, -32.9, 15.7]),
+});
+print('Rectangle region and palatte:', thumbnail2);
