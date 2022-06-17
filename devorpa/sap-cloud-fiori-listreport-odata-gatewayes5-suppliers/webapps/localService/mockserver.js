@@ -27,6 +27,52 @@ sap.ui.define([
             // ensure there is a training slash
             sMockServerUrl = /.*\/$/.test(oMainDataSource.uri) ? oMainDataSource.uri : oMainDataSource.uri + "/",
             aAnnotations = oMainDataSource.settings.annotations;
+
+            oMockServer = new MockServer({
+                rootUri: sMockServerUrl 
+            });
+
+            // configure mock server with a delay of 1s
+            MockServer.config({
+                autoRespond: true,
+                autoRespondAfter: (oUriParameters.get("serverDelay") || 1000)
+            });
+
+            // load local mock data
+            oMockServer.simulate(sMetadataUrl, {
+                sMockdataBaseUrl: sJsonFilesUrl,
+                bGenerateMissingMockData: true
+            });
+
+            var aRequests = oMockServer.getRequests(),
+            fnResponse = function(iErrCode, sMessage, aRequest) {
+                aRequest.response = function(oXhr) {
+                    oXhr.respond(iErrCode, {
+                        "Content-Type": "text/plain;charset=utf-8"
+                    }, sMessage);
+                };
+            };
+
+            // handling the metadata error test
+            if (oUriParameters.get("metadataError")) {
+                aRequests.forEach(function(aEntry) {
+                    if (aEntry.path.toString().indexOf("$metadata") > -1) {
+                        fnResponse(500, "metadata Error", aEntry);
+                    }
+                });
+            }
+
+            // handling request errors
+            if (sErrorParam) {
+                aRequests.forEach(function(aEntry) {
+                    if (aEntry.path.toString().indexOf(sEntry) > -1) {
+                        fnResponse(iErrorCode, sErrorParam, aEntry);
+                    }
+                });
+            }
+            oMockServer.start();
+
+            jQuery.sap.log.info("Running the app with mock data");
         }
     }
 }
